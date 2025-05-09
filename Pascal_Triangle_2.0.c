@@ -1,27 +1,38 @@
 #include <stdio.h>
 
 void print_pascals_triangle(int rows) {
-    int values[rows] = {};
+    int arr_cur[rows] = {};
+    int arr_prev[rows] = {};
     
-    for (int row = 0; row < rows; row++) {
-		for (int i = 0; i < rows - row -1; i++) { // Print white space.
+    for (int row_i = 0; row_i < rows; row_i++) {
+        // prints white spaces for alignment
+		for ( int spaces = 0; spaces < rows - row_i - 1; spaces++) {
 			printf(" ");
 		}
-		values[0] = 1;
-		printf("%d", values[0]);
-		for (int i = 1; i < row; i++) {
-			printf("%d", values[i]);
-
-		for (int j = 1; j <= row; j++) {
-			values[j] += values[j - 1];
-			printf("%d", values[j]);
+		// prints one row
+		for (int j = 0; j <= row_i; j++) {
+			// prints the last '1' of the row
+			if (j == row_i) {
+				arr_cur[j] = 1;
+				printf("%d", arr_cur[j]);
+			// prints the first '1' of the row
+			} else if (j == 0) {
+				arr_cur[j] = 1;
+				printf("%d", arr_cur[j]);
+				printf(" ");
+			// fill the numbers between first and second '1'
+			} else {
+				arr_cur[j] = arr_prev[j] + arr_prev[j - 1];
+				printf("%d", arr_cur[j]);
+				printf(" ");
+			}
 		}
-		
-			
-
+		 // transfers the values from curr to prev array
+        for (int j = 0; j <= row_i; j++) {
+			arr_prev[j] = arr_cur[j];
 		}
-		printf("\n");
-	}
+        printf("\n");
+    } 
 }
 
 int main() {
